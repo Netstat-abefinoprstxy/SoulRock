@@ -188,7 +188,7 @@ window.addEventListener("keydown", (event) => {
   const key = event.key;
   const command = key.toLowerCase();
 
-  if (mode === MODE_PLAYING && ["w", "a", "s", "d", "y", "e", "x"].includes(command)) {
+  if (mode === MODE_PLAYING && ["w", "a", "s", "d", "y", "e"].includes(command)) {
     event.preventDefault();
     submitCommand(command);
     return;

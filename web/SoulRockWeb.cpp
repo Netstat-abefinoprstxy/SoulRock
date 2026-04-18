@@ -162,7 +162,7 @@ class SoulRockWebGame {
             hud = make_unique<HUD>();
             hud->updateBoard();
             playerPos = hud->player.getPosition();
-            promptMessage = "Use w/a/s/d, y, e, and x. Press Enter after each command.";
+            promptMessage = "Use w/a/s/d to move, y to pick up, and e for inventory.";
             mode = PLAYING;
         }
 
@@ -196,20 +196,19 @@ class SoulRockWebGame {
                 case 'e':
                     mode = SHOWING_INVENTORY;
                     break;
-                case 'x':
-                    if (isAtAltar() && hud->hasAllStones()) {
-                        mode = GAME_WON;
-                    } else {
-                        promptMessage = "You can only finish at the altar after claiming the orange stone.";
-                    }
-                    break;
                 default:
-                    promptMessage = "Unknown command. Try w, a, s, d, y, e, or x.";
+                    promptMessage = "Unknown command. Try w, a, s, d, y, or e.";
                     break;
             }
 
             if (hud) {
                 playerPos = hud->player.getPosition();
+                if (isAtAltar() && hud->hasAllStones()) {
+                    mode = GAME_WON;
+                    promptMessage.clear();
+                } else if (hud->player.hasOrangeStone()) {
+                    promptMessage = "You have the orange stone. Return to the altar where you started to escape.";
+                }
             }
         }
 
@@ -394,10 +393,10 @@ class SoulRockWebGame {
                     break;
                 case PLAYING:
                     out << hud->render(playerPos);
-                    if (isAtAltar() && hud->hasAllStones()) {
-                        out << "You are at the altar! Enter 'x' to return stones.\n";
-                    } else if (hud->isOccupied(playerPos)) {
+                    if (hud->isOccupied(playerPos)) {
                         out << "There is an item here. Enter 'y' to pick up.\n";
+                    } else if (hud->player.hasOrangeStone()) {
+                        out << "Return to the altar at your starting position to escape.\n";
                     }
                     if (!promptMessage.empty()) {
                         out << promptMessage << "\n";
