@@ -2,6 +2,14 @@ const leaderboardKey = "soulrock-browser-leaderboard";
 let runtimeReady = false;
 let lastRecordedWin = "";
 
+const MODE_ENTER_NAME = 0;
+const MODE_ENTER_SEED = 1;
+const MODE_PLAYING = 2;
+const MODE_SHOWING_INVENTORY = 3;
+const MODE_SHOWING_FINDER = 4;
+const MODE_ANSWERING_RIDDLE = 5;
+const MODE_GAME_WON = 6;
+
 const screenEl = document.getElementById("screen");
 const formEl = document.getElementById("command-form");
 const inputEl = document.getElementById("command-input");
@@ -30,6 +38,14 @@ function callEngine(fnName, value) {
 
 function engineInt(fnName) {
   return window.Module.ccall(fnName, "number", [], []);
+}
+
+function getMode() {
+  if (!runtimeReady) {
+    return MODE_ENTER_NAME;
+  }
+
+  return engineInt("sr_get_mode");
 }
 
 function readLeaderboard() {
@@ -91,11 +107,51 @@ function renderScreen(text) {
   screenEl.textContent = text;
   screenEl.scrollTop = screenEl.scrollHeight;
   recordWinIfNeeded();
+  syncInputMode();
 }
 
 function submitCommand(value) {
   renderScreen(callEngine("sr_submit", value));
   inputEl.value = "";
+  syncInputMode();
+}
+
+function syncInputMode() {
+  const mode = getMode();
+  const needsTypedInput = (
+    mode === MODE_ENTER_NAME ||
+    mode === MODE_ENTER_SEED ||
+    mode === MODE_ANSWERING_RIDDLE
+  );
+
+  inputEl.readOnly = !needsTypedInput;
+
+  if (mode === MODE_PLAYING) {
+    inputEl.placeholder = "Movement is instant now. Type only if a prompt asks for text.";
+    inputEl.blur();
+    return;
+  }
+
+  if (mode === MODE_SHOWING_INVENTORY || mode === MODE_SHOWING_FINDER) {
+    inputEl.placeholder = "Press Enter to continue.";
+    inputEl.focus();
+    return;
+  }
+
+  if (mode === MODE_GAME_WON) {
+    inputEl.placeholder = "Game complete. Restart to play again.";
+    inputEl.blur();
+    return;
+  }
+
+  if (mode === MODE_ENTER_NAME) {
+    inputEl.placeholder = "Enter username";
+  } else if (mode === MODE_ENTER_SEED) {
+    inputEl.placeholder = "Enter seed";
+  } else if (mode === MODE_ANSWERING_RIDDLE) {
+    inputEl.placeholder = "Type your answer and press Enter";
+  }
+
   inputEl.focus();
 }
 
@@ -120,14 +176,24 @@ window.addEventListener("keydown", (event) => {
     return;
   }
 
-  if (document.activeElement === inputEl) {
+  const mode = getMode();
+  const key = event.key;
+  const command = key.toLowerCase();
+
+  if (mode === MODE_PLAYING && ["w", "a", "s", "d", "y", "e", "x"].includes(command)) {
+    event.preventDefault();
+    submitCommand(command);
     return;
   }
 
-  const command = event.key.toLowerCase();
-  if (["w", "a", "s", "d", "y", "e", "x"].includes(command)) {
+  if ((mode === MODE_SHOWING_INVENTORY || mode === MODE_SHOWING_FINDER) && key === "Enter") {
     event.preventDefault();
-    submitCommand(command);
+    submitCommand("");
+    return;
+  }
+
+  if (document.activeElement !== inputEl) {
+    return;
   }
 });
 

@@ -44,22 +44,10 @@ body {
 .terminal-bar {
   display: flex;
   align-items: center;
-  gap: 10px;
   padding: 14px 16px;
   border-bottom: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.02);
 }
-
-.dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 999px;
-  display: inline-block;
-}
-
-.dot-red { background: #ff7d7d; }
-.dot-gold { background: #ffd36f; }
-.dot-green { background: #7ef0a8; }
 
 .terminal-screen {
   margin: 0;

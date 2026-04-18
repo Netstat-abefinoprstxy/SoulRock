@@ -114,6 +114,10 @@ class SoulRockWebGame {
             return seed;
         }
 
+        int getMode() const {
+            return static_cast<int>(mode);
+        }
+
     private:
         enum Mode {
             ENTER_NAME,
@@ -459,6 +463,10 @@ EMSCRIPTEN_KEEPALIVE int sr_get_steps() {
 
 EMSCRIPTEN_KEEPALIVE int sr_get_seed() {
     return game().getSeed();
+}
+
+EMSCRIPTEN_KEEPALIVE int sr_get_mode() {
+    return game().getMode();
 }
 
 }
