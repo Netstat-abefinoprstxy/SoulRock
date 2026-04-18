@@ -8,6 +8,12 @@
 #include "../Display/Map.h"
 using namespace std;
 
+namespace {
+void clearScreen() {
+    cout << "\x1B[2J\x1B[H";
+}
+}
+
 // NON-MEMBER FUNCTION PROTOTYPES
 void displayRiddle(Scroll*);
 void displayFinder(Finder*);
@@ -149,7 +155,7 @@ void Player::setCheckpoint(Checkpoint checkpoint){
     inventory.setFlag(checkpoint);
 }
 
-string Player::displayInventory(int argument){
+string Player::displayInventory(int argument) const {
     //read out the inventory
     return (inventory.displayItem(argument));
 }
@@ -158,13 +164,14 @@ string Player::displayInventory(int argument){
 
 void key() {
     cout << "Press enter to continue...";
-    cin.ignore();
+    string tmp;
+    getline(cin, tmp);
 }
 
 void displayRiddle(Scroll* scroll) {
     string choice;
     while (true) {
-        system("cls");
+        clearScreen();
         cout << "Q: " << scroll->showRiddle();
         getline(cin, choice);
         if (scroll->checkAnswer(choice)) {
@@ -176,7 +183,7 @@ void displayRiddle(Scroll* scroll) {
 }
 
 void displayFinder(Finder* finder) {
-    system("cls");
+    clearScreen();
     cout << finder->displayHint() << endl << endl;
     key();
 }

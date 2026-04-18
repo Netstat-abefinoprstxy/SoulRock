@@ -13,6 +13,7 @@ class Stone {
         Color color;
     public:
         Stone(); // Default constructor
+        virtual ~Stone() = default;
         
         // Public booleans
         bool obtained;

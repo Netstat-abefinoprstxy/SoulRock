@@ -2,6 +2,7 @@
 #define HUD_H
 
 #include <iostream>
+#include <string>
 #include <utility>
 #include "Map.h"
 #include "../Player/Player.h"
@@ -11,6 +12,7 @@ class HUD {
     public:
         HUD();
         void print(pair<int, int>);
+        string render(pair<int, int>);
         void updateBoard();
         bool isOccupied(pair<int, int>);
         void pickUpItem(pair<int, int>);

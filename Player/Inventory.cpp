@@ -30,7 +30,7 @@ Inventory::Inventory() {
 }
 
 void Inventory::setFlag(Checkpoint checkpoint) {
-    items[checkpoint] == true;
+    items[checkpoint] = true;
 }
 
 string Inventory::displayItem(int arg) const {

@@ -17,14 +17,16 @@ class Player{
         void setCheckpoint(Checkpoint);
         void kickBackPlayer();
         bool hasAllStones() { return inventory.hasOrange(); }
+        bool hasOrangeStone() const { return inventory.hasOrange(); }
+        bool hasRequiredStones() const { return inventory.hasAllStones(); }
+        bool hasRedFinder() const { return inventory.hasRedFinder(); }
         //Accessors
-        int getSteps() {return stepsTaken;}
-        pair<int, int> getPosition(){return position;}
-        string displayInventory(int);
-        int invSize() { return inventory.itemsSize(); }
+        int getSteps() const {return stepsTaken;}
+        pair<int, int> getPosition() const {return position;}
+        string displayInventory(int) const;
+        int invSize() const { return inventory.itemsSize(); }
     private:
         int stepsTaken;
-        int randSeed;
         map<Checkpoint,bool> checkpoints;
         pair<int,int> position;
         Inventory inventory;

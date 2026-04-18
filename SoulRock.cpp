@@ -29,10 +29,18 @@
 #include <iostream> // For cin and cout
 #include <stdlib.h> // For srand
 #include <stdio.h>  // For getchar
-#include <conio.h>  // For getch
+#include <limits>
 #include <string>   // For std::string
 #include <utility>  // For std::pair
 using namespace std;
+
+namespace {
+char getInputChar() {
+    string input;
+    getline(cin, input);
+    return input.empty() ? '\n' : input[0];
+}
+}
 
 // Function prototypes
 void displayFullInventory(Player*);
@@ -67,6 +75,7 @@ int main() {
         }
         break;
     }
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     srand(seed);
 
     // Generate game
@@ -75,7 +84,7 @@ int main() {
     pair<int, int> playerPos = mainHUD.player.getPosition();
 
     // Main loop
-    char choice;
+    char choice = '\0';
     while (choice != 'x') {
         mainHUD.print(playerPos);
         if (endGame(playerPos, mainHUD)) {
@@ -85,7 +94,7 @@ int main() {
         }
         cout << ">> ";
 
-        choice = getch();
+        choice = getInputChar();
         choice = tolower(choice);
         switch (choice) {
             case 'y':

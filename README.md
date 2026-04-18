@@ -41,3 +41,39 @@ __What next?__
 |2. Kaelan Willauer|
 |3. Noah Griffith  |
 |4. Trevor Natiuk  |
+
+## Running It Again
+
+This version now builds cleanly on macOS/Linux with a standard C++17 compiler.
+
+```bash
+make
+./soulrock
+```
+
+Or in one step:
+
+```bash
+make run
+```
+
+## Browser Port
+
+There is now a quick web port that keeps the text-terminal feel and is designed
+to be hosted on GitHub Pages.
+
+### Local web build
+
+Install Emscripten (`em++`) first, then run:
+
+```bash
+make web
+```
+
+That creates a static site in `dist/`.
+
+### GitHub Pages
+
+The repository includes a GitHub Actions workflow that can build the WebAssembly
+version and deploy it to GitHub Pages. In your repository settings, set Pages to
+use GitHub Actions as the source, then push the changes.

@@ -21,7 +21,7 @@ Scroll::Scroll() {
 }
 
 bool Scroll::checkAnswer(string userAnswer){
-    for(int i = 0; i < userAnswer.size(); i++){
+    for (size_t i = 0; i < userAnswer.size(); ++i) {
         userAnswer[i] = tolower(userAnswer[i]);
     }
     return (userAnswer == answer);

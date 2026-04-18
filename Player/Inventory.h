@@ -15,7 +15,7 @@ class Inventory {
     public:
         Inventory();
         void setFlag(Checkpoint);
-        int itemsSize() { return items.size(); }
+        int itemsSize() const { return items.size(); }
         string displayItem(int arg) const;
         string getName(Checkpoint) const;
         bool hasAllStones() const;

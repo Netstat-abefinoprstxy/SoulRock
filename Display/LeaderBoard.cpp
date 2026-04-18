@@ -40,8 +40,13 @@ void displayLeaderBoard() {
     cout << right << setw(100) << setfill('-') << "" << endl;
     cout << "|" << setfill(' ') << setw(50) << "Leader Board!" << setw(49) << "|" << endl;
     cout << "|" << "  NAMES" << setw(23) << "STEPS" << setw(25) << "SEED" << setw(44) << "|" << endl;
+    if (names.empty()) {
+        cout << left << "|  " << setw(93) << "No scores saved yet." << right << setw(5) << "|" << endl;
+        cout << setfill('-') << setw(100) << "" << endl;
+        return;
+    }
     cout << left << "|  " << setw(25) << names.back() << setw(25) << steps.back() << setw(25) << seeds.back() << right << setw(22) << "|" << endl;
-    for (int i=0; i<names.size()-1; ++i) {
+    for (size_t i = 0; i + 1 < names.size(); ++i) {
         cout << left << "|  " << setw(25) << names.at(i) << setw(25) << steps.at(i) << setw(25) << seeds.at(i) << right << setw(22) << "|" << endl;
     }
     cout << setfill('-') << setw(100) << "" << endl;

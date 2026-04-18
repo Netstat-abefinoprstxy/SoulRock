@@ -83,6 +83,8 @@ Checkpoint Map::getItem(pair<int, int> position, bool scrFound) {
             }
         }
     }
+
+    return OBT_WHTSTN;
 }
 
 bool Map::willPurpleStoneKickBack() {
@@ -91,6 +93,8 @@ bool Map::willPurpleStoneKickBack() {
             return dynamic_cast<PurpleStone*>(stone.second)->willKickBack();
         }
     }
+
+    return false;
 }
 
 void Map::removeItem(pair<int, int> position) {
@@ -200,6 +204,8 @@ Scroll* Map::getScroll(Color color) {
             return scroll.second;
         }
     }
+
+    return nullptr;
 }
 
 Finder* Map::getFinder(Color color) {
@@ -207,4 +213,6 @@ Finder* Map::getFinder(Color color) {
         if (finder.second->getStnColor() == color)
             return finder.second;
     }
+
+    return nullptr;
 }

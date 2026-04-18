@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Soul Rock</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="shell">
+    <section class="terminal-wrap">
+      <div class="terminal-bar">
+        <span class="dot dot-red"></span>
+        <span class="dot dot-gold"></span>
+        <span class="dot dot-green"></span>
+        <strong>Soul Rock Browser Port</strong>
+      </div>
+      <pre id="screen" class="terminal-screen">Loading Soul Rock...</pre>
+      <form id="command-form" class="command-row">
+        <label class="prompt" for="command-input">&gt;&gt;</label>
+        <input id="command-input" name="command" type="text" autocomplete="off" spellcheck="false" maxlength="120">
+        <button type="submit">Send</button>
+      </form>
+      <div class="button-row">
+        <button data-command="w">W</button>
+        <button data-command="a">A</button>
+        <button data-command="s">S</button>
+        <button data-command="d">D</button>
+        <button data-command="y">Pick Up</button>
+        <button data-command="e">Inventory</button>
+        <button data-command="x">Use Altar</button>
+        <button id="restart-button" type="button">Restart</button>
+      </div>
+    </section>
+
+    <aside class="side-panel">
+      <section class="panel">
+        <h1>Soul Rock</h1>
+        <p>Same text-heavy dungeon crawl, just living in the browser now.</p>
+        <p class="muted">Commands still work like the terminal version: type a letter and press Enter.</p>
+      </section>
+
+      <section class="panel">
+        <h2>Controls</h2>
+        <ul>
+          <li><code>w a s d</code> move</li>
+          <li><code>y</code> pick up item</li>
+          <li><code>e</code> full inventory</li>
+          <li><code>x</code> finish at altar</li>
+        </ul>
+      </section>
+
+      <section class="panel">
+        <h2>Browser Leaderboard</h2>
+        <p class="muted">Saved in this browser with local storage.</p>
+        <ol id="leaderboard" class="leaderboard"></ol>
+      </section>
+    </aside>
+  </main>
+
+  <script src="app.js"></script>
+  <script src="soulrock.js"></script>
+</body>
+</html>
