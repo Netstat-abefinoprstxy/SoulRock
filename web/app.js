@@ -15,6 +15,7 @@ const formEl = document.getElementById("command-form");
 const inputEl = document.getElementById("command-input");
 const leaderboardEl = document.getElementById("leaderboard");
 const restartButton = document.getElementById("restart-button");
+const controlDeckEl = document.querySelector(".control-deck");
 const commandButtons = Array.from(document.querySelectorAll("[data-command]"));
 
 window.Module = window.Module || {};
@@ -123,16 +124,23 @@ function syncInputMode() {
     mode === MODE_ENTER_SEED ||
     mode === MODE_ANSWERING_RIDDLE
   );
+  const canAdvanceWithEnter = (
+    mode === MODE_SHOWING_INVENTORY ||
+    mode === MODE_SHOWING_FINDER
+  );
+  const showInput = needsTypedInput || canAdvanceWithEnter;
 
   inputEl.readOnly = !needsTypedInput;
+  formEl.hidden = !showInput;
+  controlDeckEl.hidden = needsTypedInput;
 
   if (mode === MODE_PLAYING) {
-    inputEl.placeholder = "Movement is instant now. Type only if a prompt asks for text.";
+    inputEl.placeholder = "";
     inputEl.blur();
     return;
   }
 
-  if (mode === MODE_SHOWING_INVENTORY || mode === MODE_SHOWING_FINDER) {
+  if (canAdvanceWithEnter) {
     inputEl.placeholder = "Press Enter to continue.";
     inputEl.focus();
     return;

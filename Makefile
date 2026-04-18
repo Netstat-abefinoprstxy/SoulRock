@@ -6,6 +6,7 @@ WEB_DIST := dist
 WEB_SOURCES := web/SoulRockWeb.cpp Display/*.cpp Player/*.cpp Scroll/*.cpp Stone/*.cpp
 WEB_EXPORTS := -sEXPORTED_FUNCTIONS='["_malloc","_free","_sr_reset","_sr_submit","_sr_get_screen","_sr_is_game_won","_sr_get_player_name","_sr_get_steps","_sr_get_seed","_sr_get_mode"]'
 WEB_RUNTIME := -sEXPORTED_RUNTIME_METHODS='["ccall"]'
+WEB_DATA := --preload-file Scroll
 
 .PHONY: all run clean web web-assets
 
@@ -16,7 +17,7 @@ run: all
 	./$(TARGET)
 
 web: web-assets
-	em++ -std=c++17 -O2 -I. $(WEB_SOURCES) $(WEB_EXPORTS) $(WEB_RUNTIME) -sWASM=1 -o $(WEB_DIST)/soulrock.js
+	em++ -std=c++17 -O2 -I. $(WEB_SOURCES) $(WEB_EXPORTS) $(WEB_RUNTIME) $(WEB_DATA) -sWASM=1 -o $(WEB_DIST)/soulrock.js
 
 web-assets:
 	mkdir -p $(WEB_DIST)

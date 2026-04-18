@@ -13,28 +13,37 @@
         <strong>Soul Rock Browser Port</strong>
       </div>
       <pre id="screen" class="terminal-screen">Loading Soul Rock...</pre>
-      <form id="command-form" class="command-row">
+      <section class="control-deck" aria-label="Game controls">
+        <div class="movement-pad" aria-label="Movement pad">
+          <div class="movement-row movement-row-top">
+            <button class="move-key" data-command="w" type="button" aria-label="Move up">W</button>
+          </div>
+          <div class="movement-row movement-row-bottom">
+            <button class="move-key" data-command="a" type="button" aria-label="Move left">A</button>
+            <button class="move-key" data-command="s" type="button" aria-label="Move down">S</button>
+            <button class="move-key" data-command="d" type="button" aria-label="Move right">D</button>
+          </div>
+        </div>
+
+        <div class="action-pad">
+          <button class="action-key" data-command="y" type="button">Pick Up</button>
+          <button class="action-key" data-command="e" type="button">Inventory</button>
+          <button class="action-key" data-command="x" type="button">Use Altar</button>
+          <button id="restart-button" class="action-key action-key-secondary" type="button">Restart</button>
+        </div>
+      </section>
+      <form id="command-form" class="command-row" hidden>
         <label class="prompt" for="command-input">&gt;&gt;</label>
         <input id="command-input" name="command" type="text" autocomplete="off" spellcheck="false" maxlength="120">
         <button type="submit">Send</button>
       </form>
-      <div class="button-row">
-        <button data-command="w">W</button>
-        <button data-command="a">A</button>
-        <button data-command="s">S</button>
-        <button data-command="d">D</button>
-        <button data-command="y">Pick Up</button>
-        <button data-command="e">Inventory</button>
-        <button data-command="x">Use Altar</button>
-        <button id="restart-button" type="button">Restart</button>
-      </div>
     </section>
 
     <aside class="side-panel">
       <section class="panel">
         <h1>Soul Rock</h1>
         <p>Same text-heavy dungeon crawl, just living in the browser now.</p>
-        <p class="muted">Movement keys are instant during play. Text prompts still use normal typing and Enter.</p>
+        <p class="muted">Desktop keeps instant keyboard movement, and mobile gets on-screen controls that sit right beside the game.</p>
       </section>
 
       <section class="panel">
